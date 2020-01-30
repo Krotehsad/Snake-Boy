@@ -1,37 +1,50 @@
-class obstacle{
+class obstacle {
 
-  constructor(){
-  this.x = random(width);
-  this.y = random(height);
-  this.d = random(25, 150);
-  this.r = 100;
-  this.g = 100;
-  this.b = 100;  
+  constructor() {
+    this.x = random(175, width - 175);
+    this.y = random(175, (height - 175));
+    this.d = random(25, 225);
+    this.r = 100;
+    this.g = 100;
+    this.b = 100;
   }
 
-  show(){
-  for(let i = 0; i < difficulty; i++){  
-  fill(this.r, this.g, this.b); 
-  circle(obstacleLocX[i], obstacleLocY[i], obstacleDiameter[i]);
-  }  
- }
-
-  barrierCollide(target){
-  for(let i = 0; i < difficulty; i++){   
-   if(dist(obstacleLocX[i], obstacleLocY[i], target.x, target.y) <= obstacleDiameter[i]/2){
-   gameOver = true;
-   gamePlay = false;  
-   }
-  } 
- }
-  
-  engelInfo(){ 
-    if((obstacleLocX.length && obstacleLocY.length) < difficulty){ 
-      obstacleLocX.unshift(this.x);
-      obstacleLocY.unshift(this.y);
-      obstacleDiameter.unshift(this.d);
-      console.log(obstacleLocX, obstacleLocY, obstacleDiameter);
+  show() {
+    for (let i = 0; i < obstacleList.length; i++) {
+      fill(this.r, this.g, this.b);
+      circle(obstacleList[i].x, obstacleList[i].y, obstacleList[i].d);
     }
- 
+  }
+
+  collideWith(target) {
+
+    for (let i = 0; i < obstacleList.length; i++) {
+
+      if ((target === player) && (dist(obstacleList[i].x, obstacleList[i].y, target.x, target.y) <= obstacleList[i].d / 2 + 3) && (spawn)) {
+        gameOver = true;
+        gamePlay = false;
+        title = false;
+      }
+      else if ((target === player) && (dist(obstacleList[i].x, obstacleList[i].y, target.x, target.y) <= obstacleList[i].d / 2 + 5) && (!spawn)) {
+        gameOver = false;
+        gamePlay = true;
+        title = false;
+        obstacleList[i].x = random(175, (width - 175));
+        obstacleList[i].y = random(175, (height - 175));
+      }
+      else if ((target === rocks) && (dist(obstacleList[i].x, obstacleList[i].y, target.x, target.y) <= obstacleList[i].d / 2 + 5) && (!spawn)) {
+        gameOver = false;
+        gamePlay = true;
+        title = false;
+        obstacleList[i].x = random(175, (width - 175));
+        obstacleList[i].y = random(175, (height - 175));
+      }
+    }
+  }
+
+  rocksInfo() {
+    if ((obstacleList.length) < difficulty) {
+      obstacleList.push(new obstacle());
+    }
   }
 }

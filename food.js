@@ -1,30 +1,38 @@
 class food {
 
-  constructor(){
-  this.x = Math.floor(random(width));
-  this.y = Math.floor(random(height));
-  this.d = 10;
-  this.r = random(0,255);
-  this.g = random(0,255);
-  this.b = random(0,255);  
+  constructor() {
+    this.x = random(width);
+    this.y = random(45, height - 45);
+    this.d = 10;
+    this.r = random(0, 255);
+    this.g = random(0, 255);
+    this.b = random(0, 255);
   }
 
-  show(){
-  fill(this.r, this.g, this.b); 
-  circle(this.x, this.y, this.d);
-  }  
-
-  move(){
-  
-  for(let i = 0; i < difficulty; i++){
-  if((dist(this.x, this.y, player.x, player.y) <= this.d) || (dist(this.x, this.y, obstacleLocX[i], obstacleLocY[i]) <= obstacleDiameter[i]/2 + 10)){
-   this.x = Math.floor(random(width));
-   this.y = Math.floor(random(height));
-   this.r = random(0,255);
-   this.g = random(0,255);
-   this.b = random(0,255);
-   } 
+  show() {
+    noStroke();
+    fill(this.r, this.g, this.b);
+    circle(this.x, this.y, this.d);
   }
-   //console.log("snakeLength" + " " + snakeLength, "LocX" + " " + currentLocX, "LocY" + " " + currentLocY);   
- } 
+
+
+  collide() {
+    for (let i = 0; i < obstacleList.length; i++) {
+      if (dist(this.x, this.y, player.x, player.y) <= (this.d)) {
+        this.x = random(width);
+        this.y = random(45, height - 35);
+        this.r = random(0, 255);
+        this.g = random(0, 255);
+        this.b = random(0, 255);
+        score += difficulty * multiplier;
+      }
+      else if ((dist(this.x, this.y, obstacleList[i].x, obstacleList[i].y)) <= (obstacleList[i].d / 2 + 5)) {
+        this.x = random(width);
+        this.y = random(45, height - 45);
+        this.r = random(0, 255);
+        this.g = random(0, 255);
+        this.b = random(0, 255);
+      }
+    }
+  }
 }
