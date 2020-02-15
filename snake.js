@@ -45,11 +45,11 @@ class snake {
 
   currentLocs() {
     if (currentLocs.length < snakeLength) {
-      currentLocs.unshift( { x: this.x, y: this.y, w: this.w,h: this.h});
+      currentLocs.unshift( { x: this.x, y: this.y, w: this.w, h: this.h, xs: this.xs, ys: this.ys});
     }
     else if (currentLocs.length == snakeLength) {
       currentLocs.pop();
-      currentLocs.unshift( { x: this.x, y: this.y, w: this.w,h: this.h});
+      currentLocs.unshift( { x: this.x, y: this.y, w: this.w,h: this.h, xs: this.xs, ys: this.ys});
     }
   }
 

@@ -61,7 +61,7 @@ function drawGamePlay() {
   // THIS FUNCTION ALLOWS SNAKE TO GO THROUGH THE EDGE OF THE PLAY AREA AND COME OUT FROM THE OTHER SIDE //
   player.phase();
 
-  // THIS FUNCTION CONSTANTLY UPDATES 'currentLocX[i]' AND 'currentLocY[i]' ARRAYS WHILE KEEPING THE ARRAY LENGTHS EQUAL TO THE SNAKE LENGTH. // 
+  // THIS FUNCTION CONSTANTLY UPDATES 'currentLocs' ARRAY WHILE KEEPING THE ARRAY LENGTHS EQUAL TO THE SNAKE LENGTH. // 
   player.currentLocs();
 
   rocks.show();
@@ -69,7 +69,7 @@ function drawGamePlay() {
   // COLLISION FUNCTION FOR OBSTACLES //
   rocks.collideWith(player);
   rocks.collideWith(rocks);
-
+  
   // USE 'spawn' VARIABLE TO DETERMINE WETHER TO INCREASE SCORE MULTIPLIER //
   if (spawn) {
     multiplier = snakeLength / 5;
@@ -173,11 +173,6 @@ function draw() {
   textAlign(CENTER);
   text("Multiplier:" + " " + multiplier, width - 270, height - 10);
 
-  noFill();
-  stroke(255, 0, 255);
-  rectMode(CENTER);
-  rect(width / 2, height, width, 70);
-
   // THIS DETECTS COLLISION BETWEEN SNAKE HEAD AND TAIL AND RESULTS IN 'GAME OVER' IF IT DOES. //
   for (let i = 1; i < currentLocs.length; i++) {
     if (dist(player.x, player.y, currentLocs[i].x, currentLocs[i].y) <= player.w) {
@@ -204,6 +199,12 @@ function draw() {
   else if (gameOver && !gamePlay) {
     drawGameOver();
   }
+  
+  noFill();
+  stroke(255, 0, 255);
+  rectMode(CENTER);
+  rect(width / 2, height, width, 70);
+
 }
 
 
