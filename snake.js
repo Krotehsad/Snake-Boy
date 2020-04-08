@@ -17,10 +17,11 @@ class snake {
   }
 
   move() {
-    this.x = (this.x + this.xs) + (this.xs * velocity / 2);
-    this.y = (this.y + this.ys) + (this.ys * velocity / 2);
+    this.x = (this.x + this.xs); 
+    this.y = (this.y + this.ys);
   }
-
+  
+  // THIS IS THE FUNCTION WHICH ALLOWS THE SNAKE TO GO THROUGH ONE SIDE OF THE SCREEN AND COME OUT FROM THE OPPOSITE SIDE //
   phase() {
     if (this.x > width) {
       this.x = 0.5;
@@ -36,13 +37,8 @@ class snake {
     }
   }
 
-  grow() {
-    if (dist(this.x, this.y, nutrient.x, nutrient.y) <= nutrient.d) {
-      snakeLength += 5;
-      velocity += 0.1;
-    }
-  }
-
+  // THIS FUNCTION PUSHES THE CURRENT LOCATION OF THE SNAKE INTO AN ARRAY A NUMBER OF TIMES EQUAL TO THE 'snakeLength' VARIABLE. //
+  // 'currentLocs' ARRAY IS THEN USED TO DRAW THE MOVING TAIL OF THE SNAKE. //
   currentLocs() {
     if (currentLocs.length < snakeLength) {
       currentLocs.unshift( { x: this.x, y: this.y, w: this.w, h: this.h, xs: this.xs, ys: this.ys});

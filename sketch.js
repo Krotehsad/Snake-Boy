@@ -1,4 +1,3 @@
-
 let difficulty = 1;
 let width = 1280;
 let height = 720;
@@ -14,10 +13,10 @@ let obstacleList = [];
 let currentLocs = [];
 
 // THIS VARIABLE IS USED TO GRADUALLY INCREASE THE MOVEMENT SPEED OF THE SNAKE //
-let velocity = 0;
-
 let score = 0;
 let multiplier = 1;
+let gameSpeed = 19;
+
 let gameOver = false;
 let gamePlay = false;
 let title = true;
@@ -35,14 +34,15 @@ function setup() {
 
 // GAMEPLAY LOOP //
 function drawGamePlay() {
-  frameRate(30);
-  
+  gameSpeed = 20 + multiplier;
+  frameRate(gameSpeed);
+
   //THIS LOOP DRAWS THE TAIL OF THE SNAKE USING THE ARRAY SPECIFIED BELOW//
   for (let i = 1; i < currentLocs.length; i++) {
     fill(255, 255, 255);
     rectMode(CENTER);
     noStroke();
-    rect(currentLocs[i].x, currentLocs[i].y, currentLocs[i].w, currentLocs[i].h);
+    rect(currentLocs[i-1].x, currentLocs[i-1].y, currentLocs[i-1].w, currentLocs[i-1].h);
   }
 
 
@@ -56,7 +56,6 @@ function drawGamePlay() {
 
   player.show();
   player.move();
-  player.grow();
 
   // THIS FUNCTION ALLOWS SNAKE TO GO THROUGH THE EDGE OF THE PLAY AREA AND COME OUT FROM THE OTHER SIDE //
   player.phase();
@@ -172,14 +171,23 @@ function draw() {
   textSize(20);
   textAlign(CENTER);
   text("Multiplier:" + " " + multiplier, width - 270, height - 10);
+  
+  // FPS COUNTER //
+  // noStroke();
+  // fill(0, 0, 255);
+  // textSize(20);
+  // textAlign(CENTER);
+  // text("FPS:" + " " + gameSpeed, 50, height - 10);
+
 
   // THIS DETECTS COLLISION BETWEEN SNAKE HEAD AND TAIL AND RESULTS IN 'GAME OVER' IF IT DOES. //
-  for (let i = 1; i < currentLocs.length; i++) {
-    if (dist(player.x, player.y, currentLocs[i].x, currentLocs[i].y) <= player.w) {
-      gameOver = true;
-      gamePlay = false;
-      title = false;
-    }
+  // 'currentLocs.length - 1'
+  for (let i = 1; i < currentLocs.length - 1; i++) {
+    if (dist(player.x, player.y, currentLocs[i].x, currentLocs[i].y) <= player.w / 2 + 1) {
+     gameOver = true;
+     gamePlay = false;
+     title = false;
+   }
   }
 
   // THIS EXPRESSION IS HERE TO ADD A COOLDOWN TO DIRECTION INPUTS TO PREVENT THE SNAKE FROM CHANGING DIRECTION TWICE IN THE SAME FRAME //

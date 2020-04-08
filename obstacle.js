@@ -41,7 +41,8 @@ class obstacle {
       }
     }
   }
-
+  
+  // THIS FUNCTION PUSHES NEW OBSTACLES INTO THE 'obstacleList' ARRAY UNTIL THE ARRAY LENGTH IS EQUAL TO THE 'difficulty' VARIABLE. // 
   rocksInfo() {
     if ((obstacleList.length) < difficulty) {
       obstacleList.push(new obstacle());
